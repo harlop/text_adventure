@@ -1,6 +1,7 @@
 require 'pp'
 
 class Room
+
   attr_reader  :id, :description, :east, :west, :north, :south
 
   def initialize(id, description, east, west, north, south)
@@ -39,10 +40,8 @@ class Room
   end
 end
 
-
-world = Array.new
-
 ######MAIN PROGRAM
+world = Array.new
 arr = IO.readlines("room.data")
 arr.each do |line| 
   id, description, east, west, north, south = line.chomp.split(/\|/)
@@ -53,7 +52,6 @@ room = world[1]
 loop do
   print "#{room.description}\n***********\n"
   room.exits
-
   print "enter a command (go 'direction'): "
   command = gets.chomp
   print "\n\n"
