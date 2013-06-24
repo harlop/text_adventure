@@ -1,4 +1,6 @@
 require 'pp'
+require 'yaml'
+
 
 class Room
 
@@ -41,13 +43,29 @@ class Room
 end
 
 ######MAIN PROGRAM
+room_data = Array.new
+room_data = YAML.load(File.open("room.yml"))
+#pp room_data
+
+
+
+#arr = IO.readlines("room.data")
+#pp arr
+#arr.each do |line| 
+#  id, description, east, west, north, south = line.chomp.split(/\|/)
+#  room = Room.new(id.to_i,description,east.to_i,west.to_i,north.to_i,south.to_i)
+#  world[room.id] = room
+#end
 world = Array.new
-arr = IO.readlines("room.data")
-arr.each do |line| 
-  id, description, east, west, north, south = line.chomp.split(/\|/)
-  room = Room.new(id.to_i,description,east.to_i,west.to_i,north.to_i,south.to_i)
+
+room_data.each do |room_hash|
+  room = Room.new(room_hash[:id].to_i,room_hash[:description],room_hash[:east].to_i,room_hash[:west].to_i,room_hash[:north].to_i,room_hash[:south].to_i)
   world[room.id] = room
 end
+
+#pp world
+#
+
 room = world[1]
 loop do
   print "#{room.description}\n***********\n"
